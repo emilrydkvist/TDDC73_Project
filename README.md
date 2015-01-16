@@ -2,5 +2,5 @@
 
 Project in TDDC73 - interaction programming
 
-Emil Rydkvist
+Emil Rydkvist,
 Albin Törnqvist
