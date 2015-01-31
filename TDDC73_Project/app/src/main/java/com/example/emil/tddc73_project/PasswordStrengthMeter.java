@@ -3,6 +3,7 @@ package com.example.emil.tddc73_project;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.widget.EditText;
@@ -32,6 +33,9 @@ public class PasswordStrengthMeter extends LinearLayout {
         passwordField.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
+        passwordField.setGravity(Gravity.CENTER);
+        //Set to password type
+        passwordField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         feedbackField = new TextView(context);
         feedbackField.setLayoutParams(new LinearLayout.LayoutParams(
