@@ -26,20 +26,26 @@ public class MainActivity extends ActionBarActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         theLayout.setOrientation(LinearLayout.VERTICAL);
 
+        //creating a new image slideshow
         slideShow = new ImgSlideshow(this);
-        slideShow.addImage(R.drawable.arrow_right);
+
+        //adding images to image slideshow
+        slideShow.addImage(R.drawable.teamliquid);
         slideShow.addImage(R.drawable.ic_launcher);
-        slideShow.addImage(R.drawable.arrow_left);
-        slideShow.addImage(R.drawable.blacknwhiteperlin);
-        slideShow.addImage(R.drawable.dogealbin);
-        slideShow.setNumberToShow(3);
+        slideShow.addImage(R.drawable.liu);
+        slideShow.addImage(R.drawable.dota);
+        slideShow.addImage(R.drawable.twitch);
+        slideShow.addImage(R.drawable.studio);
+
+        //setting number of images to show simultaneously
+        slideShow.setNumberToShow(4);
+
         slideShow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1000));
 
-        //setContentView(slideShow);
-
-
+        //creating new password strength meter
         passwordStrMeter = new PasswordStrengthMeter(this);
-        //setContentView(passwordStrMeter);
+
+        //add components to layout
         theLayout.addView(passwordStrMeter);
         theLayout.addView(slideShow);
 
