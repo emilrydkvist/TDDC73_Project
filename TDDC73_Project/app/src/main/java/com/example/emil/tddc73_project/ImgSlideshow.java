@@ -38,7 +38,7 @@ public class ImgSlideshow extends LinearLayout{
 
         //Basic settings for the linearlayout
         this.setOrientation(VERTICAL);
-        this.setBackgroundColor(Color.parseColor("#222230"));
+        //this.setBackgroundColor(Color.parseColor("#ffffff"));
         //
 
         //set image layout properties and imagedata variable

@@ -13,12 +13,18 @@ public class MainActivity extends ActionBarActivity {
 
     ImgSlideshow slideShow;
     PasswordStrengthMeter passwordStrMeter;
+    LinearLayout theLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        theLayout = new LinearLayout(this);
+        theLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        theLayout.setOrientation(LinearLayout.VERTICAL);
 
         slideShow = new ImgSlideshow(this);
         slideShow.addImage(R.drawable.arrow_right);
@@ -29,11 +35,15 @@ public class MainActivity extends ActionBarActivity {
         slideShow.setNumberToShow(3);
         slideShow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1000));
 
+        //setContentView(slideShow);
 
-        setContentView(slideShow);
 
         passwordStrMeter = new PasswordStrengthMeter(this);
-        setContentView(passwordStrMeter);
+        //setContentView(passwordStrMeter);
+        theLayout.addView(passwordStrMeter);
+        theLayout.addView(slideShow);
+
+        setContentView(theLayout);
     }
 
 
