@@ -4,14 +4,31 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    ImgSlideshow slideShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        slideShow = new ImgSlideshow(this);
+        slideShow.addImage(R.drawable.arrow_right);
+        slideShow.addImage(R.drawable.ic_launcher);
+        slideShow.addImage(R.drawable.arrow_left);
+        slideShow.addImage(R.drawable.blacknwhiteperlin);
+        slideShow.addImage(R.drawable.dogealbin);
+        slideShow.setNumberToShow(3);
+        slideShow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1000));
+
+
+        setContentView(slideShow);
     }
 
 
