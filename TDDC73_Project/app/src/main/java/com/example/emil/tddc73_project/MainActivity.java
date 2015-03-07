@@ -10,7 +10,9 @@ import android.widget.LinearLayout;
 
 public class MainActivity extends ActionBarActivity {
 
+
     ImgSlideshow slideShow;
+    PasswordStrengthMeter passwordStrMeter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class MainActivity extends ActionBarActivity {
 
 
         setContentView(slideShow);
+
+        passwordStrMeter = new PasswordStrengthMeter(this);
+        setContentView(passwordStrMeter);
     }
 
 
