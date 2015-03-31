@@ -21,6 +21,18 @@ public class PasswordStrengthMeter extends LinearLayout {
     EditText passwordField;
     TextView feedbackField;
 
+    String passwordShort = "Password is too short";
+    String passwordWeak = "Password is weak";
+    String passwordOk = "Password is OK";
+    String passwordStrong = "Password is strong";
+    String passwordVeryStrong = "Password is very strong";
+
+    String passwordColorShort = "#FF0000";
+    String passwordColorWeak = "#FF0000";
+    String passwordColorOk = "##ff7f00";
+    String passwordColorStrong = "#009900";
+    String passwordColorVeryStrong = "#009900";
+
     public PasswordStrengthMeter(Context context) {
         super(context);
 
@@ -120,6 +132,58 @@ public class PasswordStrengthMeter extends LinearLayout {
         setPasswordStrength(passwStr);
 
     }
+    /*
+     *  Set functions for feedback messages.
+     */
+    public void setPasswordShort(String text)
+    {
+        passwordShort = text;
+    }
+    public void setPasswordWeak(String text)
+    {
+        passwordWeak = text;
+    }
+    public void setPasswordOk(String text)
+    {
+        passwordOk = text;
+    }
+
+    public void setPasswordStrong(String text)
+    {
+        passwordStrong = text;
+    }
+    public void setPasswordVeryStrong(String text)
+    {
+        passwordVeryStrong = text;
+    }
+
+
+    /*
+    *  Set functions for color of feedback messages.
+    *  Input needs to be a hex in string
+    */
+    public void setHexColorShort(String color)
+    {
+        passwordColorShort = color;
+    }
+    public void setHexColorWeak(String color)
+    {
+        passwordColorWeak = color;
+    }
+    public void setHexColorOk(String color)
+    {
+        passwordColorOk = color;
+    }
+
+    public void setHexColorStrong(String color)
+    {
+        passwordColorStrong = color;
+    }
+    public void setHexColorVeryStrong(String color)
+    {
+        passwordColorVeryStrong = color;
+    }
+
 
     /*
      *  Function giving feedback on the strength of the password.
@@ -128,32 +192,32 @@ public class PasswordStrengthMeter extends LinearLayout {
     public void setPasswordStrength(int passwordStrength) {
         //Password too short
         if(passwordStrength == -1){
-            feedbackField.setText("Password is too short");
-            feedbackField.setTextColor(Color.parseColor("#FF0000"));
+            feedbackField.setText(passwordShort);
+            feedbackField.setTextColor(Color.parseColor(passwordColorShort));
         }
 
         //Password is weak
         else if(passwordStrength >= 10 && passwordStrength <20){
-            feedbackField.setText("Password is weak");
-            feedbackField.setTextColor(Color.parseColor("#FF0000"));
+            feedbackField.setText(passwordWeak);
+            feedbackField.setTextColor(Color.parseColor(passwordColorWeak));
         }
 
         //Password is Ok
         else if(passwordStrength >= 20 && passwordStrength <30){
-            feedbackField.setText("Password is OK");
-            feedbackField.setTextColor(Color.parseColor("#ff7f00"));
+            feedbackField.setText(passwordOk);
+            feedbackField.setTextColor(Color.parseColor(passwordColorOk));
         }
 
         //Password is strong
         else if(passwordStrength >= 30 && passwordStrength <40){
-            feedbackField.setText("Password is strong");
-            feedbackField.setTextColor(Color.parseColor("#009900"));
+            feedbackField.setText(passwordStrong);
+            feedbackField.setTextColor(Color.parseColor(passwordColorShort));
         }
 
         //Password is very strong
         else if(passwordStrength >= 40){
-            feedbackField.setText("Password is very strong");
-            feedbackField.setTextColor(Color.parseColor("#009900"));
+            feedbackField.setText(passwordVeryStrong);
+            feedbackField.setTextColor(Color.parseColor(passwordColorVeryStrong));
         }
 
     }

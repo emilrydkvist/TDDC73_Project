@@ -45,6 +45,11 @@ public class MainActivity extends ActionBarActivity {
         //creating new password strength meter
         passwordStrMeter = new PasswordStrengthMeter(this);
 
+        //Set functions for password strength meter
+        passwordStrMeter.setPasswordShort("Alldeles för kort!");
+        passwordStrMeter.setHexColorShort("#0000FF");
+        passwordStrMeter.setHexColorVeryStrong("#FF00FF");
+
         //add components to layout
         theLayout.addView(passwordStrMeter);
         theLayout.addView(slideShow);
