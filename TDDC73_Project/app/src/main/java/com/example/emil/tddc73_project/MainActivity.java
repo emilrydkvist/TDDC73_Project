@@ -38,9 +38,12 @@ public class MainActivity extends ActionBarActivity {
         slideShow.addImage(R.drawable.studio);
 
         //setting number of images to show simultaneously
-        slideShow.setNumberToShow(3);
+        slideShow.setNumberToShow(4);
 
-        slideShow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1000));
+        slideShow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 900));
+
+        //Set the size of the images
+        slideShow.setImageSize(200);
 
         //creating new password strength meter
         passwordStrMeter = new PasswordStrengthMeter(this);

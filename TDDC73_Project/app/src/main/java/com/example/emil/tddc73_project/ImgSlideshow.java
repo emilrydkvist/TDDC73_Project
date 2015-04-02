@@ -64,7 +64,7 @@ public class ImgSlideshow extends LinearLayout{
         //Left arrow
         ImageButton leftBtn = new ImageButton(context);
         leftBtn.setImageResource(R.drawable.arrow_left);
-        leftBtn.setLayoutParams(new LayoutParams(200, 250));
+        leftBtn.setLayoutParams(new LayoutParams(170, 220));
 
         leftBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -81,7 +81,7 @@ public class ImgSlideshow extends LinearLayout{
         //Right arrow
         ImageButton rightBtn = new ImageButton(context);
         rightBtn.setImageResource(R.drawable.arrow_right);
-        rightBtn.setLayoutParams(new LayoutParams(200, 250));
+        rightBtn.setLayoutParams(new LayoutParams(170, 220));
 
         rightBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -162,6 +162,23 @@ public class ImgSlideshow extends LinearLayout{
             params.setMargins(10,0,10,0);
             imgArray.get(i).setLayoutParams(params);
             imgLayout.addView(imgArray.get(i));
+        }
+    }
+
+
+    /**
+     * setImageSize
+     * @param size
+     *size in pixels.
+     *
+     * Set the size for the images in the image slider.
+     */
+    public void setImageSize(int size){
+        for(int i=0; i<imgArray.size(); i++){
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
+            params.weight = 1;
+            params.setMargins(10,0,10,0);
+            imgArray.get(i).setLayoutParams(params);
         }
     }
 
