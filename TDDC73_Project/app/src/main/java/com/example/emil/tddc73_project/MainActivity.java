@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
         slideShow.addImage(R.drawable.studio);
 
         //setting number of images to show simultaneously
-        slideShow.setNumberToShow(4);
+        slideShow.setNumberToShow(3);
 
         slideShow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1000));
 

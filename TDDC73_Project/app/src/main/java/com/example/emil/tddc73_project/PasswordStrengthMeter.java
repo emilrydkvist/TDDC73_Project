@@ -29,7 +29,7 @@ public class PasswordStrengthMeter extends LinearLayout {
 
     String passwordColorShort = "#FF0000";
     String passwordColorWeak = "#FF0000";
-    String passwordColorOk = "##ff7f00";
+    String passwordColorOk = "#ff7f00";
     String passwordColorStrong = "#009900";
     String passwordColorVeryStrong = "#009900";
 

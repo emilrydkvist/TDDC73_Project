@@ -18,14 +18,14 @@ import java.util.List;
 
 /**
  * Created by albintornqvist on 18/01/15.
+ *
+ * Image slideshow component.
+ * Add images to the component and specify number of images to show.
  */
 public class ImgSlideshow extends LinearLayout{
 
     private List<Integer> ImgData;
     private List<ImageView> imgArray;
-    //final ImageView img1;
-    //final ImageView img2;
-    //final ImageView img3;
     private int counter = 0;
     private int numberToShow = 1;
     private LinearLayout imgLayout;
@@ -107,16 +107,27 @@ public class ImgSlideshow extends LinearLayout{
         //
     }
 
-
+    /**
+     * addImage
+     *
+     * Function for adding images to image slider
+     * @param resource
+     * Takes an image resource as a parameter
+     */
     public void addImage(int resource)
     {
         ImgData.add(resource);
         updateImages();
     }
 
+    /**
+     * updateImages()
+     *
+     * Private function that resets the shown images in the imgArray
+     * according to 'counter's current value.
+     */
     private void updateImages()
     {
-
         if(ImgData.size()>0 && ImgData.size()>=imgArray.size() && imgArray.size()>0)
         {
             int imgCounter = counter;
@@ -132,6 +143,12 @@ public class ImgSlideshow extends LinearLayout{
         }
     }
 
+    /**
+     * createImages()
+     *
+     * Private function used to reset imgArray and
+     * add a number of imgLayouts according to the local variable 'numberToShow'
+     */
     private void createImages()
     {
         imgArray.clear();
@@ -148,6 +165,13 @@ public class ImgSlideshow extends LinearLayout{
         }
     }
 
+    /**
+     * setNumberToShow
+     * @param nr
+     *
+     * Set function to choose the number of images to
+     * show at once on the image slide show.
+     */
     public void setNumberToShow(int nr)
     {
         if(nr <= 0)
