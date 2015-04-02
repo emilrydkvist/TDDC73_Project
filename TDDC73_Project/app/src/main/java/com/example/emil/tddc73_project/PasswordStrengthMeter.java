@@ -21,17 +21,23 @@ public class PasswordStrengthMeter extends LinearLayout {
     EditText passwordField;
     TextView feedbackField;
 
+    // Feedback messages describing the strength of the password
     String passwordShort = "Password is too short";
     String passwordWeak = "Password is weak";
     String passwordOk = "Password is OK";
     String passwordStrong = "Password is strong";
     String passwordVeryStrong = "Password is very strong";
 
+    // Colors of the feedback messages. Must be hex color as a string
     String passwordColorShort = "#FF0000";
     String passwordColorWeak = "#FF0000";
     String passwordColorOk = "#ff7f00";
     String passwordColorStrong = "#009900";
     String passwordColorVeryStrong = "#009900";
+
+
+    AlgorithmInterface pwAlgorithm;
+    int passwordStr = 0;
 
     public PasswordStrengthMeter(Context context) {
         super(context);
@@ -59,6 +65,7 @@ public class PasswordStrengthMeter extends LinearLayout {
         this.addView(passwordField);
         this.addView(feedbackField);
 
+
         passwordField.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,6 +77,8 @@ public class PasswordStrengthMeter extends LinearLayout {
 
                 }
 
+
+                // Check the strength of the password after it is changed
                 @Override
                 public void afterTextChanged(Editable s) {
                     checkPassword(s.toString());
@@ -81,57 +90,19 @@ public class PasswordStrengthMeter extends LinearLayout {
         }
 
     /*
-     * Function for determining the strength of a password on a scale from 1-50
-     * Set passwStr to -1 if the password is too short.
-     * @param string passw
+     * Function for determining the strength of a password on a scale from 1-10
+     * Set passwordStr to -1 if the password is too short.
+     * @param string password
      */
-    private void checkPassword(String passw) {
+    private void checkPassword(String password) {
 
-        Pattern capitalLetter = Pattern.compile("([A-Z])");
-        Pattern numerical = Pattern.compile("([0-9])");
-        Pattern specialChar = Pattern.compile("([[^a-z]&&[^A-Z]&&[^0-9]])");
-        Matcher match;
-        int passwLen = passw.length();
-        int passwStr = 0;
+        pwAlgorithm = new Algorithm();
+        passwordStr = pwAlgorithm.passwordStrength(password);
 
-        //Check password length and assigns a strength score. Password must be at least 6 chars long
-        if(passwLen < 6)
-            passwStr = -1;
-        else {
-            if (passwLen >= 6 && passwLen < 12)
-                passwStr += 10;
-            else if (passwLen >= 12)
-                passwStr += 20;
-
-
-            //Check for capital letters in password
-            match = capitalLetter.matcher(passw);
-            while (match.find()) {
-                feedbackField.setText("Password contains A-Z " + passw);
-                passwStr += 10;
-                break;
-            }
-
-            //Check for numerical characters in password
-            match = numerical.matcher(passw);
-            while (match.find()) {
-                feedbackField.setText("Password contains 0-9 " + passw);
-                passwStr += 10;
-                break;
-            }
-
-            //Check for special characters in password
-            match = specialChar.matcher(passw);
-            while (match.find()) {
-                feedbackField.setText("Password contains special char " + passw);
-                passwStr += 10;
-                break;
-            }
-        }
         //Call function for displaying feedback to the user.
-        setPasswordStrength(passwStr);
-
+        setPasswordFeedback(passwordStr);
     }
+
     /*
      *  Set functions for feedback messages.
      */
@@ -147,7 +118,6 @@ public class PasswordStrengthMeter extends LinearLayout {
     {
         passwordOk = text;
     }
-
     public void setPasswordStrong(String text)
     {
         passwordStrong = text;
@@ -174,7 +144,6 @@ public class PasswordStrengthMeter extends LinearLayout {
     {
         passwordColorOk = color;
     }
-
     public void setHexColorStrong(String color)
     {
         passwordColorStrong = color;
@@ -189,7 +158,7 @@ public class PasswordStrengthMeter extends LinearLayout {
      *  Function giving feedback on the strength of the password.
      *  @param int passwordStrength
      */
-    public void setPasswordStrength(int passwordStrength) {
+    public void setPasswordFeedback(int passwordStrength) {
         //Password too short
         if(passwordStrength == -1){
             feedbackField.setText(passwordShort);
@@ -197,25 +166,25 @@ public class PasswordStrengthMeter extends LinearLayout {
         }
 
         //Password is weak
-        else if(passwordStrength >= 10 && passwordStrength <20){
+        else if(passwordStrength >= 2 && passwordStrength <4){
             feedbackField.setText(passwordWeak);
             feedbackField.setTextColor(Color.parseColor(passwordColorWeak));
         }
 
         //Password is Ok
-        else if(passwordStrength >= 20 && passwordStrength <30){
+        else if(passwordStrength >= 4 && passwordStrength <6){
             feedbackField.setText(passwordOk);
             feedbackField.setTextColor(Color.parseColor(passwordColorOk));
         }
 
         //Password is strong
-        else if(passwordStrength >= 30 && passwordStrength <40){
+        else if(passwordStrength >= 6 && passwordStrength <8){
             feedbackField.setText(passwordStrong);
             feedbackField.setTextColor(Color.parseColor(passwordColorShort));
         }
 
         //Password is very strong
-        else if(passwordStrength >= 40){
+        else if(passwordStrength >= 8){
             feedbackField.setText(passwordVeryStrong);
             feedbackField.setTextColor(Color.parseColor(passwordColorVeryStrong));
         }
