@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity {
 
         //creating a new image slideshow
         slideShow = new ImgSlideshow(this);
+        slideShow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 900));
 
         //adding images to image slideshow
         slideShow.addImage(R.drawable.teamliquid);
@@ -40,10 +41,21 @@ public class MainActivity extends ActionBarActivity {
         //setting number of images to show simultaneously
         slideShow.setNumberToShow(4);
 
-        slideShow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 900));
-
         //Set the size of the images
         slideShow.setImageSize(200);
+
+        //add actionlistener to image slide show
+        slideShow.addActionListener(new SlideshowActionListener() {
+            @Override
+            public void onClick(clickEvent e) {
+                if(e.leftClick){
+                    System.out.println("nu har du klickat vänster");
+                }
+                else if(e.rightClick){
+                    System.out.println("nu har du klickat höger");
+                }
+            }
+        });
 
         //creating new password strength meter
         passwordStrMeter = new PasswordStrengthMeter(this);

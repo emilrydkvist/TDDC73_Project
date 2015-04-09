@@ -65,6 +65,9 @@ public class PasswordStrengthMeter extends LinearLayout {
         this.addView(passwordField);
         this.addView(feedbackField);
 
+        //Create new instance of password algorithm
+        pwAlgorithm = new Algorithm();
+
 
         passwordField.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -90,13 +93,21 @@ public class PasswordStrengthMeter extends LinearLayout {
         }
 
     /*
+    * Set function to use a new password algorithm
+    *
+     */
+    public void setAlgorithm(AlgorithmInterface newAlgorithm){
+        pwAlgorithm = newAlgorithm;
+    }
+
+
+    /*
      * Function for determining the strength of a password on a scale from 1-10
      * Set passwordStr to -1 if the password is too short.
      * @param string password
      */
     private void checkPassword(String password) {
 
-        pwAlgorithm = new Algorithm();
         passwordStr = pwAlgorithm.passwordStrength(password);
 
         //Call function for displaying feedback to the user.

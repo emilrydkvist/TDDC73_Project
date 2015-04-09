@@ -1,14 +1,9 @@
 package com.example.emil.tddc73_project;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,25 +19,32 @@ import java.util.List;
  */
 public class ImgSlideshow extends LinearLayout{
 
-    private List<Integer> ImgData;
-    private List<ImageView> imgArray;
+    private List<Integer> imgData;      //List of image resources
+    private List<ImageView> imgArray;   //List of ImageViews
     private int counter = 0;
     private int numberToShow = 1;
     private LinearLayout imgLayout;
     Context mContext;
+    private List<SlideshowActionListener> listenerCollection;
 
 
     public ImgSlideshow(Context context) {
         super(context);
         mContext = context;
 
+        //new instance of listenercollection
+        listenerCollection = new ArrayList<SlideshowActionListener>();
+
         //Basic settings for the linearlayout
         this.setOrientation(VERTICAL);
+        this.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
         //this.setBackgroundColor(Color.parseColor("#ffffff"));
         //
 
         //set image layout properties and imagedata variable
-        ImgData = new ArrayList<Integer>();
+        imgData = new ArrayList<Integer>();
         imgArray = new ArrayList<ImageView>();
 
         imgLayout = new LinearLayout(context);
@@ -70,11 +72,14 @@ public class ImgSlideshow extends LinearLayout{
             @Override
             public void onClick(View v) {
                 if(counter <= 0)
-                    counter = (ImgData.size()-1);
+                    counter = (imgData.size()-1);
                 else
                     counter--;
 
                 updateImages();
+                clickEvent e = new clickEvent();
+                e.leftClick = true;
+                notifyListeners(e);
             }
         });
 
@@ -86,12 +91,15 @@ public class ImgSlideshow extends LinearLayout{
         rightBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(counter >= (ImgData.size()-1))
+                if(counter >= (imgData.size()-1))
                     counter = 0;
                 else
                     counter++;
 
                 updateImages();
+                clickEvent e = new clickEvent();
+                e.rightClick = true;
+                notifyListeners(e);
             }
         });
         ////
@@ -107,6 +115,30 @@ public class ImgSlideshow extends LinearLayout{
         //
     }
 
+
+    /*
+    * notifyListeners
+    *
+    * Notify all listeners in listenerCollection and
+    * call onClick function send clickEvent as parameter
+     */
+    private void notifyListeners(clickEvent e){
+
+        for(int i=0; i<listenerCollection.size(); i++)
+            listenerCollection.get(i).onClick(e);
+
+    }
+
+    /*
+    * addActionListener
+    *
+    * Add new listener to the listenerCollection
+     */
+    public void addActionListener(SlideshowActionListener listener){
+        listenerCollection.add(listener);
+    }
+
+
     /**
      * addImage
      *
@@ -116,7 +148,7 @@ public class ImgSlideshow extends LinearLayout{
      */
     public void addImage(int resource)
     {
-        ImgData.add(resource);
+        imgData.add(resource);
         updateImages();
     }
 
@@ -128,16 +160,17 @@ public class ImgSlideshow extends LinearLayout{
      */
     private void updateImages()
     {
-        if(ImgData.size()>0 && ImgData.size()>=imgArray.size() && imgArray.size()>0)
+        if(imgData.size()>0 && imgData.size()>=imgArray.size() && imgArray.size()>0)
         {
             int imgCounter = counter;
 
+            //Loop through each image view and set appropriate image
             for(int i=0; i<imgArray.size(); i++, imgCounter++)
             {
-                if(imgCounter > (ImgData.size()-1))
+                if(imgCounter > (imgData.size()-1))
                     imgCounter = 0;
 
-                imgArray.get(i).setImageResource(ImgData.get(imgCounter));
+                imgArray.get(i).setImageResource(imgData.get(imgCounter));
 
             }
         }
@@ -174,6 +207,7 @@ public class ImgSlideshow extends LinearLayout{
      * Set the size for the images in the image slider.
      */
     public void setImageSize(int size){
+
         for(int i=0; i<imgArray.size(); i++){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
             params.weight = 1;
@@ -193,8 +227,8 @@ public class ImgSlideshow extends LinearLayout{
     {
         if(nr <= 0)
             numberToShow = 1;
-        else if(nr >= ImgData.size())
-            numberToShow = ImgData.size();
+        else if(nr >= imgData.size())
+            numberToShow = imgData.size();
         else
             numberToShow = nr;
 
